@@ -39,13 +39,23 @@ module.exports = {
   devServer: {
     static: {
       directory: path.resolve(__dirname, "public"),
-      publicPath: "/",
       watch: true,
     },
     port: 3000,
     open: true,
-    historyApiFallback: true,
+    historyApiFallback: true, // или {...}, если нужна настройка
+    proxy: [
+      {
+        context: ["/api"],
+        target: "https://belparyaj.com",
+        changeOrigin: true,
+        secure: false,
+        pathRewrite: { "^/api": "" },
+        logLevel: "debug",
+      },
+    ],
   },
+
   plugins: [
     new HtmlWebpackPlugin({
       template: "./public/index.html",
