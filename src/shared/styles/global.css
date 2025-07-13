@@ -1,17 +1,12 @@
 :root {
-  --color-black: #000000;
-  --color-white: #ffffff;
+  --colorBlack: #000000;
+  --colorWhite: #ffffff;
   --colorYellowButton: #f0da7d;
+  --colorYellowButtonHover: #f5e8b1;
   --colorBorderDarkGold: #ba8e47;
-  --myDisabledOrTransparent: rgba(255, 255, 255, 0.5);
-
-  --font-size-xs: 12px;
-  --font-size-sm: 14px;
-  --font-size-md: 16px;
-
-  --font-weight-regular: 400;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+  --colorGray: rgba(255, 255, 255, 0.5);
+  --colorDisabledOrTransparent: #696969;
+  --colorRed: #ff0000;
 }
 
 *,
@@ -28,8 +23,8 @@ body {
   width: 100%;
   line-height: 1.5;
   font-family: "PT Sans", sans-serif;
-  background-color: var(--color-black);
-  color: var(--color-white);
+  background-color: var(--colorBlack);
+  color: var(--colorWhite);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

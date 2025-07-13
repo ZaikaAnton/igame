@@ -1,0 +1,22 @@
+.selectSection {
+  display: flex;
+  flex: 2;
+  padding: 20px;
+  gap: 20px;
+  background-color: var(--colorGray);
+  border-radius: 10px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.inputSection {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 10px 20px;
+  /* gap: 5px; */
+  background-color: var(--colorGray);
+  border-radius: 10px;
+  height: 100%;
+  box-sizing: border-box;
+}

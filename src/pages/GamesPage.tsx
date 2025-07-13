@@ -1,12 +1,26 @@
-import Box from "@/components/Box/Box";
-import Typography from "@/components/Typography/Typography";
+import InputSection from "@/components/InputSection/InputSection";
+import SelectSection from "@/components/SelectSection/SelectSection";
+import Box from "@/shared/Box/Box";
+import "./GamesPage.css";
 
 const GamesPage = () => {
   return (
-    <Box>
-      <Typography variantClass="text-16-700" style={{ color: "red" }}>
-        GamesPage
-      </Typography>
+    <Box
+      style={{
+        padding: "10px 20px",
+        height: "100vh",
+      }}
+    >
+      <Box
+        style={{
+          display: "flex",
+          gap: "10px",
+          height: "80px",
+        }}
+      >
+        <SelectSection className="selectSection" />
+        <InputSection className="inputSection" />
+      </Box>
     </Box>
   );
 };

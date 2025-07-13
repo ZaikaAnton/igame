@@ -1,0 +1,19 @@
+.textfield-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--colorBorderDarkGold);
+  background-color: var(--colorGray);
+  gap: 15px;
+  padding: 10px 15px;
+}
+
+.textfield-input {
+  border: none;
+  outline: none;
+  background-color: transparent;
+  flex: 1;
+}
+
+.textfield-container.error {
+  border-color: var(--colorRed);
+}
