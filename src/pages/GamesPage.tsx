@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import Box from "@/shared/Box/Box";
 import "./GamesPage.css";
 import FilterGamesPage from "@/components/Filter/FilterGamesPage/FilterGamesPage";
@@ -6,49 +6,55 @@ import HeaderGamesPage from "@/components/Headers/HeaderGamesPage/HeaderGamesPag
 
 import { useGetGamesQuery } from "@/shared/api/api";
 import GamesList from "@/components/Lists/GamesList/GamesList";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/store/store";
 
 const GamesPage = () => {
   const { data: gamesResponse } = useGetGamesQuery();
-
+  const cardRef = useRef<HTMLDivElement>(null);
   const [visibleCount, setVisibleCount] = useState(1);
 
-  const cardRef = useRef<HTMLDivElement>(null);
+  const searchValue = useSelector(
+    (state: RootState) => state.gamesFilter.search
+  );
 
-  useEffect(() => {
-    function updateVisibleCount() {
-      if (cardRef.current && gamesResponse) {
-        const cardRect = cardRef.current.getBoundingClientRect();
-        const cardWidth = cardRect.width;
-        const cardHeight = cardRect.height;
+  const filteredGames = useMemo(() => {
+    if (!gamesResponse) return [];
+    const lowerSearch = searchValue.toLowerCase();
+    return gamesResponse.filter((game) =>
+      game.gameName.toLowerCase().includes(lowerSearch)
+    );
+  }, [gamesResponse, searchValue]);
 
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+  const visibleGames = useMemo(() => {
+    return filteredGames ? filteredGames.slice(0, visibleCount) : [];
+  }, [filteredGames, visibleCount]);
 
-        const horizontalGap = 20;
-        const verticalGap = 10;
+  const updateVisibleCount = useCallback(() => {
+    if (!cardRef.current || !gamesResponse?.length) return;
 
-        const cardsPerRow = Math.floor(
-          windowWidth / (cardWidth + horizontalGap)
-        );
-        const rowsPerPage = Math.floor(
-          windowHeight / (cardHeight + verticalGap)
-        );
-        const totalCardsVisible = cardsPerRow * rowsPerPage;
+    const cardRect = cardRef.current.getBoundingClientRect();
+    const cardWidth = cardRect.width;
+    const cardHeight = cardRect.height;
 
-        setVisibleCount((prev) => Math.max(prev, totalCardsVisible));
-      }
-    }
+    const windowWidth = window.innerWidth;
+    const windowHeight = window.innerHeight;
 
-    updateVisibleCount();
+    const horizontalGap = 20;
+    const verticalGap = 10;
 
-    window.addEventListener("resize", updateVisibleCount);
+    const cardsPerRow = Math.floor(windowWidth / (cardWidth + horizontalGap));
+    const rowsPerPage = Math.floor(windowHeight / (cardHeight + verticalGap));
+    const totalCardsVisible = cardsPerRow * rowsPerPage;
 
-    return () => window.removeEventListener("resize", updateVisibleCount);
+    setVisibleCount(totalCardsVisible);
   }, [gamesResponse]);
 
-  const visibleGames = gamesResponse
-    ? gamesResponse.slice(0, visibleCount)
-    : [];
+  useEffect(() => {
+    updateVisibleCount();
+    window.addEventListener("resize", updateVisibleCount);
+    return () => window.removeEventListener("resize", updateVisibleCount);
+  }, [updateVisibleCount]);
 
   useEffect(() => {
     function onScroll() {
@@ -56,9 +62,9 @@ const GamesPage = () => {
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 100
       ) {
-        if (gamesResponse && visibleCount < gamesResponse.length) {
+        if (visibleCount < filteredGames.length) {
           setVisibleCount((prev) =>
-            Math.min(prev + visibleCount, gamesResponse.length)
+            Math.min(prev + visibleCount, filteredGames.length)
           );
         }
       }
@@ -66,7 +72,7 @@ const GamesPage = () => {
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
-  }, [visibleCount, gamesResponse]);
+  }, [visibleCount, filteredGames.length]);
 
   if (!gamesResponse || gamesResponse.length === 0) return null;
 
@@ -78,14 +84,12 @@ const GamesPage = () => {
         padding: "10px 20px",
         height: "100%",
         overflowY: "auto",
+        gap: "20px",
       }}
     >
       <FilterGamesPage />
       <HeaderGamesPage />
       <GamesList games={visibleGames} cardRef={cardRef} />
-      {visibleCount < (gamesResponse?.length ?? 0) && (
-        <Box style={{ textAlign: "center" }}>Загрузка...</Box>
-      )}
     </Box>
   );
 };

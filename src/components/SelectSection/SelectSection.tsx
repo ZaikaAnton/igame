@@ -13,12 +13,6 @@ interface Option {
   value: string | number;
 }
 
-const options = [
-  { label: "Apple", value: "apple" },
-  { label: "Banana", value: "banana" },
-  { label: "Cherry", value: "cherry" },
-];
-
 const SelectSection = ({ style, className }: SelectSectionProps) => {
   const [selected, setSelected] = useState<Option | null>(null);
 
@@ -33,11 +27,7 @@ const SelectSection = ({ style, className }: SelectSectionProps) => {
       }}
     >
       <Typography variantClass="text-14-700">Game Type</Typography>
-      <Autocomplete
-        options={options}
-        value={selected}
-        onValueChange={setSelected}
-      />
+      <Autocomplete options={[]} value={selected} onValueChange={setSelected} />
     </Box>
   );
 };
