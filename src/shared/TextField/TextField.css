@@ -12,6 +12,7 @@
   outline: none;
   background-color: transparent;
   flex: 1;
+  color: var(--colorWhite);
 }
 
 .textfield-container.error {

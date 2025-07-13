@@ -1,7 +1,7 @@
-import InputSection from "@/components/InputSection/InputSection";
-import SelectSection from "@/components/SelectSection/SelectSection";
 import Box from "@/shared/Box/Box";
 import "./GamesPage.css";
+import FilterGamesPage from "@/components/Filter/FilterGamesPage/FilterGamesPage";
+import HeaderGamesPage from "@/components/Headers/HeaderGamesPage/HeaderGamesPage";
 
 const GamesPage = () => {
   return (
@@ -11,16 +11,8 @@ const GamesPage = () => {
         height: "100vh",
       }}
     >
-      <Box
-        style={{
-          display: "flex",
-          gap: "10px",
-          height: "80px",
-        }}
-      >
-        <SelectSection className="selectSection" />
-        <InputSection className="inputSection" />
-      </Box>
+      <FilterGamesPage />
+      <HeaderGamesPage />
     </Box>
   );
 };
