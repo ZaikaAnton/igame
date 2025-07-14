@@ -1,5 +1,5 @@
-import Box from "@/shared/Box/Box";
-import Typography from "@/shared/Typography/Typography";
+import Box from "@/shared/ui/Box/Box";
+import Typography from "@/shared/ui/Typography/Typography";
 import { Game } from "@/shared/api/api";
 
 interface CardGameProps {

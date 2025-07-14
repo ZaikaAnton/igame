@@ -1,0 +1,8 @@
+.input-section__container {
+  display: flex;
+  gap: 10px;
+}
+
+.input-section__textfield {
+  flex: 1;
+}

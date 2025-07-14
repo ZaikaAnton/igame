@@ -9,7 +9,7 @@ import {
   Fragment,
   useEffect,
 } from "react";
-import Box from "@/shared/Box/Box";
+import Box from "@/shared/ui/Box/Box";
 import "./TextField.css";
 
 interface TextFieldProps

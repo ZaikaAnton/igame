@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "@/features/gamesFilterSlice";
-import TextField from "@/shared/TextField/TextField";
-import Box from "@/shared/Box/Box";
-import Typography from "@/shared/Typography/Typography";
+import TextField from "@/shared/ui/TextField/TextField";
+import Box from "@/shared/ui/Box/Box";
+import Typography from "@/shared/ui/Typography/Typography";
 import { CSSProperties, useEffect, useState } from "react";
 import { RootState } from "@/app/store/store";
-import Button from "@/shared/Button/Button";
+import Button from "@/shared/ui/Button/Button";
+import "./InputSection.css";
 
 interface InputSectionProps {
   style?: CSSProperties;
@@ -14,6 +15,7 @@ interface InputSectionProps {
 
 const InputSection = ({ style, className }: InputSectionProps) => {
   const dispatch = useDispatch();
+
   const searchFromStore = useSelector(
     (state: RootState) => state.gamesFilter.search
   );
@@ -31,9 +33,9 @@ const InputSection = ({ style, className }: InputSectionProps) => {
   return (
     <Box className={className} style={style}>
       <Typography variantClass="text-14-700">Search</Typography>
-      <Box style={{ display: "flex", gap: "10px" }}>
+      <Box className="input-section__container">
         <TextField
-          style={{ flex: 1 }}
+          className="input-section__textfield"
           icon={<img src="/assets/searchIcon.svg" alt="Search Icon" />}
           value={inputValue}
           onChange={(val) => setInputValue(val)}

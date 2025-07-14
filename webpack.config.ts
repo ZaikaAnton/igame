@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: "./src/app/index.tsx",
+  devtool: "inline-source-map",
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
@@ -43,7 +44,7 @@ module.exports = {
     },
     port: 3000,
     open: true,
-    historyApiFallback: true, // или {...}, если нужна настройка
+    historyApiFallback: true,
     proxy: [
       {
         context: ["/api"],
@@ -60,6 +61,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./public/index.html",
     }),
+
     new CopyWebpackPlugin({
       patterns: [{ from: "public/assets", to: "assets" }],
     }),

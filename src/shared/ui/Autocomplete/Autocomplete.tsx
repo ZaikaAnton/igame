@@ -9,14 +9,14 @@ import {
   CSSProperties,
   Fragment,
 } from "react";
-import Box from "@/shared/Box/Box";
-import Typography from "@/shared/Typography/Typography";
-import TextField from "@/shared/TextField/TextField";
+import Box from "@/shared/ui/Box/Box";
+import Typography from "@/shared/ui/Typography/Typography";
+import TextField from "@/shared/ui/TextField/TextField";
 import "./Autocomplete.css";
 
 interface Option {
   label: string;
-  value: string | number;
+  value: string;
 }
 
 type AutocompleteProps<T extends ElementType = "div"> = {

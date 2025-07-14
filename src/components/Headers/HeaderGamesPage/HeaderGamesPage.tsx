@@ -1,16 +1,14 @@
-import Box from "@/shared/Box/Box";
-import Typography from "@/shared/Typography/Typography";
+import Box from "@/shared/ui/Box/Box";
+import Typography from "@/shared/ui/Typography/Typography";
+import "./HeaderGamesPage.css";
 
 const HeaderGamesPage = () => {
   return (
-    <Box style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+    <Box className="header-games-page">
       <img
         src="/assets/logo.svg"
         alt="Logo"
-        style={{
-          padding: "0 5px",
-          border: "1px dashed var(--colorDisabledOrTransparent)",
-        }}
+        className="header-games-page__logo"
       />
       <Typography variantClass="text-16-700">BSW Games</Typography>
     </Box>
